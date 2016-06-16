@@ -51,7 +51,6 @@ private String[] iconName = { "通讯录", "日历", "照相机", "时钟", "游戏", "短信"
         return book_list;
     }
 	
-	
 	class load_button_listener implements OnClickListener{
 		@Override
 		public void onClick(View v) {
