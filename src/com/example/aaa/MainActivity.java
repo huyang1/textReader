@@ -1,5 +1,9 @@
 package com.example.aaa;
- 
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,23 +12,46 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.*;
- 
 
 public class MainActivity extends Activity {
-
+private GridView gridview;
+ArrayList<Map<String, Object>> book_list;
+private int[] icon = { R.drawable.txt};
+private String[] iconName = { "Í¨Ñ¶Â¼", "ÈÕÀú", "ÕÕÏà»ú", "Ê±ÖÓ", "ÓÎÏ·", "¶ÌĞÅ", "ÁåÉù",
+        "ÉèÖÃ", "ÓïÒô", "ÌìÆø", "ä¯ÀÀÆ÷", "ÊÓÆµ" };
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
-        Button new_exit=(Button)this.findViewById(R.id.exit);
-        Button new_setting=(Button)this.findViewById(R.id.setting);
+		gridview=(GridView) this.findViewById(R.id.gridview);
         Button new_load=(Button)this.findViewById(R.id.load);
         
-        new_setting.setOnClickListener(new setting_button_Listener());
-		new_exit.setOnClickListener(new exit_button_Listener());
+        String [] from ={"image","text"};
+        int [] to = {R.id.image,R.id.text};
+        getbook();
+        SimpleAdapter sim_adapter = new SimpleAdapter(this, book_list, R.layout.grid, from, to);
+        //ÅäÖÃÊÊÅäÆ÷
+        gridview.setAdapter(sim_adapter);
+        
+        
+        
+        
 		new_load.setOnClickListener(new load_button_listener());
 	}
+	
+	public ArrayList<Map<String, Object>> getbook(){        
+		book_list=new ArrayList<Map<String, Object>>();
+		for(int i=0;i<iconName.length;i++){
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("image", icon[0]);
+            map.put("text", iconName[i]);
+            book_list.add(map);
+        }
+            
+        return book_list;
+    }
+	
+	
 	class load_button_listener implements OnClickListener{
 		@Override
 		public void onClick(View v) {
@@ -33,20 +60,5 @@ public class MainActivity extends Activity {
 			startActivity(intent);
 		}
 	}
-	class setting_button_Listener implements OnClickListener{    //set button¼àÌıÆ÷
-		@Override
-		public void onClick(View arg0) {
-			 
-			 Intent intent=new Intent(MainActivity.this, setActivity.class);
-			 startActivity(intent);
-		}
-	}
-	
-	class exit_button_Listener implements OnClickListener{    //exit button¼àÌıÆ÷
-		@Override
-		public void onClick(View arg0) {
-			 
-			finish();
-		}
-	}
+ 
 }
