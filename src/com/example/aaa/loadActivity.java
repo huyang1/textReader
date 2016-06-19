@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;   
 import java.util.HashMap;   
 import android.app.Activity;   
+import android.content.Intent;
 import android.os.Bundle;   
 import android.view.View;   
 import android.widget.AdapterView;   
@@ -46,14 +47,20 @@ public class loadActivity extends Activity {
                 {
                 	if(file.isDirectory())
                     {
-                    	Toast.makeText(getApplicationContext(),"this is Directory "+"path的值是:"+content,Toast.LENGTH_SHORT).show();
+                    	//Toast.makeText(getApplicationContext(),"this is Directory "+"path的值是:"+content,Toast.LENGTH_SHORT).show();
                     	showDir(content);
                     }
                     else if(file.isFile())
+                    {
+                    	Book books=(Book) getApplicationContext();
+                    	books.add(title);
                     	if(end=="txt")
-                             Toast.makeText(getApplicationContext(),"this is txt file! " ,Toast.LENGTH_SHORT).show();
+                    		Toast.makeText(getApplicationContext(),"添加成功 " ,Toast.LENGTH_SHORT).show();   
                     	else
-                    		Toast.makeText(getApplicationContext(),"this not is txt file! " ,Toast.LENGTH_SHORT).show();
+                    		Toast.makeText(getApplicationContext(),"添加成功" ,Toast.LENGTH_SHORT).show();
+                    	Intent intent=new Intent(loadActivity.this, MainActivity.class);
+            			startActivity(intent);	
+                    }	
                     else
                     	Toast.makeText(getApplicationContext(),"无法打开 " ,Toast.LENGTH_SHORT).show();
                 }
@@ -78,7 +85,6 @@ public class loadActivity extends Activity {
                 new String[]{"name"},//HashMap中的两个key值 itemTitle和itemContent   
                 new int[]{R.id.itemTitle});/*布局文件listitem.xml中组件的id    
                                                             布局文件的各组件分别映射到HashMap的各元素上，完成适配*/   
-           
         myListView.setAdapter(mySimpleAdapter);  
     }
 }  
