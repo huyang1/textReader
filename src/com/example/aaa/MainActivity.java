@@ -21,6 +21,7 @@ private GridView gridview;
 private ArrayList<Map<String, Object>> book_list;
 private int[] icon = { R.drawable.txt};
 private ArrayList<String> iconName;
+public static Activity main1;
 //public ArrayList<String> iconName = new ArrayList<String>();
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
@@ -30,7 +31,7 @@ private ArrayList<String> iconName;
         Button new_load=(Button)this.findViewById(R.id.load);
         showBookShelf();
         gridview.setOnItemClickListener(new gridviewListener());
-        	 
+        main1=this;
 		new_load.setOnClickListener(new load_button_listener());
 	}
 	public class gridviewListener implements OnItemClickListener{
@@ -38,9 +39,9 @@ private ArrayList<String> iconName;
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
 			// TODO Auto-generated method stub
-			HashMap<String,Object> temp= (HashMap<String, Object>) gridview.getItemAtPosition(position);   
-            String title=(String) temp.get("text");
-            Toast.makeText(getApplicationContext(), position + "",
+			Book books=(Book) getApplicationContext();
+			
+            Toast.makeText(getApplicationContext(),books.getPath(position) ,
                     Toast.LENGTH_SHORT).show();
 		}
 	}
@@ -74,6 +75,7 @@ private ArrayList<String> iconName;
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
+			
 			Intent intent=new Intent(MainActivity.this, loadActivity.class);
 			startActivity(intent);
 		}

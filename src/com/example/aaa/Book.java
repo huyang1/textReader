@@ -1,21 +1,36 @@
 package com.example.aaa;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.app.Application;
 
 public class Book extends Application{
-	private  ArrayList<String> iconName = new ArrayList<String>();
+	private  ArrayList<Map<String,String>> iconName=new ArrayList<Map<String,String>>();
 	public Book()
 	{
-		iconName.add("导入");
+		Map<String,String> map=new HashMap<String, String>();
+		map.put("name","导入");
+		map.put("path", "..");
+		iconName.add(map);
 	}
 	public ArrayList<String> getBooks()
 	{
-		return iconName;
+		ArrayList<String> temp=new ArrayList<String>();
+		for(int i=0;i<iconName.size();i++)
+			temp.add(iconName.get(i).get("name"));
+		return temp;
 	}
-	public void add(String str)
+	public String getPath(int i)
 	{
-		iconName.add(str);
+		return iconName.get(i).get("path");
+	}
+	public void add(String name,String path)
+	{
+		Map<String,String> map=new HashMap<String, String>();
+		map.put("name",name);
+		map.put("path",path);
+		iconName.add(map);
 	}
 }
