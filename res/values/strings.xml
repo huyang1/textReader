@@ -4,11 +4,11 @@
     <string name="app_name">hello</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    
+    <string name="menu">菜单</string> 
     <string name="main_txt_title">我的书架</string> 
-    <string name="main_button_load">导入</string>
+    <string name="main_button_load">书城</string>
     <string name="main_button_setting">设置</string> 
     <string name="main_button_exit">退出</string>  
-    
+    <string name="app_main_name">Reader</string>
 </resources>
 

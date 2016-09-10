@@ -5,8 +5,8 @@
     android:layout_height="fill_parent"
     >
   			
-  	<com.example.myView.readPage
-  		android:id="@+id/viewtxt_main_view" 
+  	<TextView
+  		android:id="@+id/viewtxt" 
   		android:layout_height="fill_parent" 
   		android:layout_width="fill_parent" 
   		android:background="#ff0000"

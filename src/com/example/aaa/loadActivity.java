@@ -3,7 +3,12 @@ package com.example.aaa;
 import java.io.File;
 import java.util.ArrayList;   
 import java.util.HashMap;   
+
+import com.example.DataBase.Book;
+import com.example.DataBase.sqliteDataBase;
+
 import android.app.Activity;   
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;   
 import android.view.KeyEvent;
@@ -20,13 +25,15 @@ public class loadActivity extends Activity {
     //声明ListView对象   
     private ListView myListView; 
     private static final String ROOT_PATH ="/";
-    private ArrayList<HashMap<String,String>> myArrayList;
+    private ArrayList<HashMap<String,Object>> myArrayList;
+    private int [] resource={R.drawable.dir,R.drawable.txt};
+    private Context context;
     @Override   
     public void onCreate(Bundle savedInstanceState) {   
         super.onCreate(savedInstanceState);
         
         setContentView(R.layout.loadmainview);   
-        
+        context=this;
         myListView=(ListView)findViewById(R.id.myListView);
          
     	showDir(ROOT_PATH);
@@ -59,8 +66,11 @@ public class loadActivity extends Activity {
                         }
                         else if(file.isFile())
                         {
-                        	Book books=(Book) getApplicationContext();
-                        	books.add(title,content);
+                        	/*Book books=(Book) getApplicationContext();
+                        	books.add(title,content,resource[1]);*/
+                        	sqliteDataBase database=new sqliteDataBase(context);
+                        	database.insert(new Book(title,content));
+                        	
                         	if(end=="txt")
                         		Toast.makeText(getApplicationContext(),"添加成功 " ,Toast.LENGTH_SHORT).show();   
                         	else
@@ -81,10 +91,10 @@ public class loadActivity extends Activity {
         });   
     } 
     protected void showDir(String str){
-    	myArrayList=new ArrayList<HashMap<String,String>>();
+    	myArrayList=new ArrayList<HashMap<String,Object>>();
     	if(!str.equals("/"))
     	{
-    		HashMap<String, String> map = new HashMap<String, String>(); 
+    		HashMap<String, Object> map = new HashMap<String, Object>(); 
 			map.put("name","返回上一级");
 			map.put("path",str);
 			myArrayList.add(map);
@@ -92,16 +102,24 @@ public class loadActivity extends Activity {
     	File file=new File(str);
 		File[] files = file.listFiles();
 		for (int i=0;i<files.length;i++){
-			HashMap<String, String> map = new HashMap<String, String>(); 
-			map.put("name",files[i].getName());
-			map.put("path",files[i].getPath());
-			myArrayList.add(map);      
+			if((new File(files[i].getPath())).canRead())
+			{
+				HashMap<String, Object> map = new HashMap<String, Object>(); 
+				map.put("name",files[i].getName());
+				map.put("path",files[i].getPath());
+				if((new File(files[i].getPath())).isFile())
+					map.put("kind",resource[1]);
+				else
+					map.put("kind",resource[0]);
+				myArrayList.add(map);
+			}
 	   }
+		int [] resource={R.drawable.dir,R.drawable.txt};
 		SimpleAdapter mySimpleAdapter=new SimpleAdapter(this,   
                 myArrayList,//数据源   
                 R.layout.list_item,//ListView内部数据展示形式的布局文件listitem.xml   
-                new String[]{"name"},//HashMap中的两个key值 itemTitle和itemContent   
-                new int[]{R.id.itemTitle});/*布局文件listitem.xml中组件的id    
+                new String[]{"name","kind"},//HashMap中的两个key值 itemTitle和itemContent   
+                new int[]{R.id.itemTitle,R.id.image});/*布局文件listitem.xml中组件的id    
                                                             布局文件的各组件分别映射到HashMap的各元素上，完成适配*/   
         myListView.setAdapter(mySimpleAdapter);  
     }
