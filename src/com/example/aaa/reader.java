@@ -1,15 +1,17 @@
 package com.example.aaa;
 
-
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-
 import com.example.myView.readPage;
 import com.example.voice.JsonParser;
 import com.iflytek.cloud.speech.RecognizerListener;
@@ -19,32 +21,22 @@ import com.iflytek.cloud.speech.SpeechError;
 import com.iflytek.cloud.speech.SpeechListener;
 import com.iflytek.cloud.speech.SpeechRecognizer;
 import com.iflytek.cloud.speech.SpeechUser;
-
-
-import android.R.integer;
 import android.app.Activity;
-
 import android.content.Context;
 import android.content.Intent;
-
-import android.graphics.Bitmap;
-
-import android.graphics.Paint;
-
 import android.os.Bundle;
 import android.os.Handler;
-
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class reader extends Activity{
 	private final Handler handler=new Handler();
-	private FileReader fr;
+	private BufferedReader br;
     private boolean flag;
     private double x=0,y=0;
+    private static final int PAGESIZE=600;
     private SpeechRecognizer mIat;
     Context context;
     final Runnable runnable=new Runnable() {  
@@ -73,33 +65,23 @@ public class reader extends Activity{
     private String speakWord;
 	//private ArrayList<String> allPage = new ArrayList<String>();
     private StringBuilder sb = new StringBuilder(1024*20);//数据缓冲区
-    private Map<FileReader,String> pos_chunk=new HashMap<FileReader, String>();
+    private Map<BufferedReader,String> pos_chunk=new HashMap<BufferedReader, String>();
     private int pos_page_in_chunk=0;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		final readPage readpage=new readPage(this);
 		setContentView(readpage); 
 		context=this;
-		//setContentView(R.layout.main_text);
-		/*Bundle b = getIntent().getExtras(); // 获得当前路径的一份拷贝
-		String str = b.getString("FILE_PATH");*/
-		//thread.start();
 		Intent intent = getIntent();
-		try {
-			fr=new FileReader(new File(intent.getStringExtra("data")));
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		char[] buf = new char[1024*20];//页面数据缓冲区 
-    	try {fr.read(buf);}
+		convertCodeAndGetText(intent.getStringExtra("data"));
+		char[] buf = new char[PAGESIZE*20];//页面数据缓冲区 
+    	try {br.read(buf);}
     	catch (IOException e){}
         sb.append(buf);
-        pos_chunk.put(fr,"1");//将当前块位置存储
+        pos_chunk.put(br,"1");//将当前块位置存储
         pos_page_in_chunk++;
-		readpage.getContent(sb.substring(0, 1024*pos_page_in_chunk));
+		readpage.getContent(sb.substring(0, PAGESIZE*pos_page_in_chunk));
 		readpage.setOnTouchListener(new OnTouchListener(){
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
@@ -124,32 +106,42 @@ public class reader extends Activity{
 					{
 						if(pos_page_in_chunk==20)
 						{
+							boolean flag=true;
 						    sb.delete(0, sb.length());//清空缓冲区
-							int next_chunk_pos=Integer.parseInt(pos_chunk.get(fr))+1;//得到下一块的位置
+							int next_chunk_pos=Integer.parseInt(pos_chunk.get(br))+1;//得到下一块的位置
 							//遍历map，所要的块是否在map内
-							Set<FileReader> set_chunk=pos_chunk.keySet();
+							Set<BufferedReader> set_chunk=pos_chunk.keySet();
 							for(Iterator iter = set_chunk.iterator(); iter.hasNext();)
 							{
-							     FileReader key = (FileReader) iter.next();
+								BufferedReader key = (BufferedReader) iter.next();
 							     String value = (String)pos_chunk.get(key);
 							     if(Integer.parseInt(value)==next_chunk_pos)
 							     {
-							    	 
-							    	fr=key;
-							    	char[] buffer = new char[1024*20];//页面数据缓冲区 
-							    	try {fr.read(buffer);}
+							    	flag=false;
+							    	br=key;
+							    	char[] buffer = new char[PAGESIZE*20];//页面数据缓冲区 
+							    	try {br.read(buffer);}
 							    	catch (IOException e){}
 							        sb.append(buffer);
 							    	pos_page_in_chunk=0;
 							     }
 							}
+							if(flag)
+							{
+								char[] buffer = new char[PAGESIZE*20];//页面数据缓冲区 
+						    	try {br.read(buffer);}
+						    	catch (IOException e){}
+						    	pos_chunk.put(br,""+next_chunk_pos);
+						        sb.append(buffer);
+						    	pos_page_in_chunk=0;	    
+							}
 						}
-					    readpage.getContent(sb.substring(1024*pos_page_in_chunk, 1024*(pos_page_in_chunk+1)));
+					    readpage.getContent(sb.substring(PAGESIZE*pos_page_in_chunk, PAGESIZE*(pos_page_in_chunk+1)));
 						pos_page_in_chunk++;
 					}
 					else//前翻
 					{
-						if(pos_page_in_chunk==1&Integer.parseInt(pos_chunk.get(fr))==1)
+						if(pos_page_in_chunk==1&Integer.parseInt(pos_chunk.get(br))==1)
 							Toast.makeText(getApplicationContext(),"该页是第一页",
 				                    Toast.LENGTH_SHORT).show();
 						else
@@ -157,29 +149,29 @@ public class reader extends Activity{
 							if(pos_page_in_chunk==1)//处理该页为块中的第一页要前翻的动作
 							{
 								sb.delete(0, sb.length());//清空缓冲区
-								int back_chunk_pos=Integer.parseInt(pos_chunk.get(fr))-1;//得到上一块的位置
+								int back_chunk_pos=Integer.parseInt(pos_chunk.get(br))-1;//得到上一块的位置
 								//遍历map，所要的块是否在map内
-								Set<FileReader> set_chunk=pos_chunk.keySet();
+								Set<BufferedReader> set_chunk=pos_chunk.keySet();
 								for(Iterator iter = set_chunk.iterator(); iter.hasNext();)
 								{
-								     FileReader key = (FileReader) iter.next();
+									BufferedReader key = (BufferedReader) iter.next();
 								     String value = (String)pos_chunk.get(key);
 								     if(Integer.parseInt(value)==back_chunk_pos)
 								     {
 								    	 
-								    	fr=key;
-								    	char[] buffer = new char[1024*20];//页面数据缓冲区 
-								    	try {fr.read(buffer);}
+								    	br=key;
+								    	char[] buffer = new char[PAGESIZE*20];//页面数据缓冲区 
+								    	try {br.read(buffer);}
 								    	catch (IOException e){}
 								        sb.append(buffer);
 								    	pos_page_in_chunk=20;
-								    	readpage.getContent(sb.substring(sb.length()-1024,sb.length()));
+								    	readpage.getContent(sb.substring(sb.length()-PAGESIZE,sb.length()));
 								     }
 							    }
 						   }
 						   else
 						   {
-							   readpage.getContent(sb.substring(1024*(pos_page_in_chunk-2), 1024*(pos_page_in_chunk-1)));
+							   readpage.getContent(sb.substring(PAGESIZE*(pos_page_in_chunk-2), PAGESIZE*(pos_page_in_chunk-1)));
 								pos_page_in_chunk--;
 						   }	
 						}	
@@ -191,6 +183,51 @@ public class reader extends Activity{
 		handler.postDelayed(runnable, 500);//0.5秒执行一次runnable.
 		
 	}
+	
+	public void convertCodeAndGetText(String str_filepath) {// 转码
+
+        File file = new File(str_filepath);
+        try {
+                
+                FileInputStream fis = new FileInputStream(file);
+                BufferedInputStream in = new BufferedInputStream(fis);
+                in.mark(4);
+                byte[] first3bytes = new byte[3];
+                in.read(first3bytes);//找到文档的前三个字节并自动判断文档类型。
+                in.reset();
+                if (first3bytes[0] == (byte) 0xEF && first3bytes[1] == (byte) 0xBB
+                                && first3bytes[2] == (byte) 0xBF) {// utf-8
+
+                        br = new BufferedReader(new InputStreamReader(in, "utf-8"));
+
+                } else if (first3bytes[0] == (byte) 0xFF
+                                && first3bytes[1] == (byte) 0xFE) {
+
+                        br = new BufferedReader(
+                                        new InputStreamReader(in, "unicode"));
+                } else if (first3bytes[0] == (byte) 0xFE
+                                && first3bytes[1] == (byte) 0xFF) {
+
+                        br = new BufferedReader(new InputStreamReader(in,
+                                        "utf-16be"));
+                } else if (first3bytes[0] == (byte) 0xFF
+                                && first3bytes[1] == (byte) 0xFF) {
+
+                        br = new BufferedReader(new InputStreamReader(in,
+                                        "utf-16le"));
+                } else {
+
+                        br = new BufferedReader(new InputStreamReader(in, "GBK"));
+                }
+                
+        } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+        } catch (IOException e) {
+                e.printStackTrace();
+        }
+    }
+	
 	private RecognizerListener mRecoListener = new RecognizerListener(){    
         public void onResult(RecognizerResult results, boolean isLast) 
         {

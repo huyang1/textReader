@@ -13,8 +13,7 @@
         <RelativeLayout
             android:id="@+id/relativeLayout"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:focusableInTouchMode="true" >
+            android:layout_height="wrap_content">
 
             <com.example.myView.myRoundImageView
                 android:id="@+id/id_img1"
@@ -23,7 +22,6 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="30dp"
-                android:src="@drawable/log"
                 roundview:border_inside_color="#fff7f2e9"
                 roundview:border_outside_color="#ffd5d1c8"
                 roundview:border_thickness="2dp" />

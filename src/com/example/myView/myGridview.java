@@ -30,30 +30,5 @@ public class myGridview extends GridView{
     protected void dispatchDraw(Canvas canvas)
     {
     	super.dispatchDraw(canvas);
-    	View localView1 = getChildAt(0);
-        int column = getWidth() / localView1.getWidth();
-        int childCount = getChildCount();
-        Paint localPaint;
-        localPaint = new Paint();
-        localPaint.setStyle(Paint.Style.STROKE);
-        localPaint.setColor(Color.BLACK);
-        for(int i = 0;i < childCount;i++)
-        {
-            View cellView = getChildAt(i);
-            canvas.drawLine(cellView.getRight(), cellView.getTop(), cellView.getRight(), cellView.getBottom(), localPaint);
-        }
-        bookbitmap = getChildAt(0);
-		if(bookbitmap!=null)
-		{
-			for(int i=0;i<=getHeight()/bookbitmap.getHeight();i++)
-			{
-				int position=bookbitmap.getHeight()+getVerticalSpacing();
-				Paint paint=new Paint();
-				paint.setAntiAlias(true); 
-				paint.setColor(0xffFFFACD); 
-				paint.setTextSize(15); 
-				canvas.drawRect(7, position*(i+1), getWidth()-7, position*(i+1)+20, paint);
-			}
-		}
     }
 }

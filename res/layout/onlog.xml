@@ -13,18 +13,6 @@
         android:orientation="vertical" >
     </LinearLayout>
 
-    <com.example.myView.myRoundImageView
-        android:id="@+id/photo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:src="@drawable/log"
-        roundview:border_inside_color="#fff7f2e9"
-        roundview:border_outside_color="#ffd5d1c8"
-        roundview:border_thickness="10dp" />
-
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -45,11 +33,17 @@
             android:id="@+id/editText2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
             android:layout_toRightOf="@+id/password"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="70dp"
             android:ems="10"
-            android:inputType="textPassword" />
+            android:inputType="textPassword" >
+
+            <requestFocus />
+        </EditText>
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -97,5 +91,17 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="52dp"
         android:text="Button" />
+
+    <com.example.myView.myRoundImageView
+        android:id="@+id/photo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        roundview:border_inside_color="#fff7f2e9"
+        roundview:border_outside_color="#ffd5d1c8"
+        roundview:border_thickness="5dp" />
 
 </RelativeLayout>

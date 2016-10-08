@@ -20,20 +20,14 @@
         android:layout_below="@+id/toolbar"
         android:fitsSystemWindows="true" >
 
-            <com.example.myView.myGridview
-                android:id="@+id/gridview"
-                android:clipToPadding="false"
-                android:paddingTop="30dp"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:background="@drawable/gridviewcolor"
-                android:gravity="center_horizontal"
-                android:numColumns="3"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"
-                android:scrollbars="none"
-                android:stretchMode="columnWidth"
-                android:verticalSpacing="30dp" />
+            <ListView android:id="@+id/ListView"       
+              android:layout_width="match_parent"  
+              android:scrollbars="none"
+              android:clickable="false"
+              android:divider="@android:color/transparent"
+              android:dividerHeight="0dp"
+              android:background="@drawable/gridviewcolor"     
+              android:layout_height="wrap_content" />
     </android.support.v4.widget.DrawerLayout>
 
     <com.example.myView.myRoundImageView
@@ -42,7 +36,6 @@
         android:layout_height="30dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
-        android:src="@drawable/log"
         roundview:border_inside_color="#fff7f2e9"
         roundview:border_outside_color="#ffd5d1c8"
         roundview:border_thickness="2dp" />

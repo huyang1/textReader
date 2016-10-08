@@ -11,7 +11,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;   
-import android.view.KeyEvent;
+
 import android.view.View;   
 import android.widget.AdapterView;   
 import android.widget.AdapterView.OnItemClickListener;   
@@ -34,12 +34,12 @@ public class loadActivity extends Activity {
         
         setContentView(R.layout.loadmainview);   
         context=this;
-        myListView=(ListView)findViewById(R.id.myListView);
+        myListView=(ListView)findViewById(R.id.myListView1);
          
     	showDir(ROOT_PATH);
          
         //添加点击事件   
-        myListView.setOnItemClickListener(new OnItemClickListener(){   
+        /*myListView.setOnItemClickListener(new OnItemClickListener(){   
             @Override   
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,   
                     long arg3) {
@@ -68,7 +68,7 @@ public class loadActivity extends Activity {
                         {
                         	/*Book books=(Book) getApplicationContext();
                         	books.add(title,content,resource[1]);*/
-                        	sqliteDataBase database=new sqliteDataBase(context);
+                        	/*sqliteDataBase database=new sqliteDataBase(context);
                         	database.insert(new Book(title,content));
                         	
                         	if(end=="txt")
@@ -88,7 +88,7 @@ public class loadActivity extends Activity {
                     	Toast.makeText(getApplicationContext(),"没有权限进行此操作" ,Toast.LENGTH_SHORT).show();
             	}
             }      
-        });   
+        }); */  
     } 
     protected void showDir(String str){
     	myArrayList=new ArrayList<HashMap<String,Object>>();
@@ -114,7 +114,6 @@ public class loadActivity extends Activity {
 				myArrayList.add(map);
 			}
 	   }
-		int [] resource={R.drawable.dir,R.drawable.txt};
 		SimpleAdapter mySimpleAdapter=new SimpleAdapter(this,   
                 myArrayList,//数据源   
                 R.layout.list_item,//ListView内部数据展示形式的布局文件listitem.xml   

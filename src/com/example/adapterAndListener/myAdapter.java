@@ -1,4 +1,4 @@
-package com.example.myView;
+package com.example.adapterAndListener;
 
 import java.util.ArrayList;
 
@@ -42,12 +42,12 @@ public class myAdapter extends BaseAdapter{
 	@Override
 	public View getView(int arg0, View arg1, ViewGroup arg2) {
 		// TODO Auto-generated method stub
-		if(arg0!=(this.getCount()-1))
+		if(!book_list.get(arg0).equals("import"))
 		{
 			ViewHolder viewHolder = null;  
 	        if (arg1 == null)  
 	        {  
-	            arg1 = mInflater.inflate(R.layout.grid, arg2,  
+	            arg1 = mInflater.inflate(R.layout.grid, null,  
 	                    false);
 	            viewHolder = new ViewHolder();  
 	            viewHolder.book = (com.example.myView.bookBitmap) arg1  
@@ -61,7 +61,7 @@ public class myAdapter extends BaseAdapter{
 	        return arg1;  
 		}
 		else
-			return mInflater.inflate(R.layout.loadbitmap, arg2, false);  
+			return mInflater.inflate(R.layout.loadbitmap, null, false);  
 		
 	}
 	private final class ViewHolder  
