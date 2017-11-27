@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:roundview="http://schemas.android.com/apk/res/com.example.aaa"
+    xmlns:roundview="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#ffffff" >
@@ -33,11 +33,9 @@
             android:id="@+id/editText2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/password"
-            android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="70dp"
+            android:layout_toRightOf="@+id/password"
             android:ems="10"
             android:inputType="textPassword" >
 
@@ -81,7 +79,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="50dp"
         android:layout_toLeftOf="@+id/photo"
-        android:text="Button" />
+        android:text="登录" />
 
     <Button
         android:id="@+id/button2"
@@ -90,7 +88,7 @@
         android:layout_alignBottom="@+id/button1"
         android:layout_alignParentRight="true"
         android:layout_marginRight="52dp"
-        android:text="Button" />
+        android:text="注册" />
 
     <com.example.myView.myRoundImageView
         android:id="@+id/photo"

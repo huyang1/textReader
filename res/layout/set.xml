@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+<RelativeLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#3c3c3c" >
+
+                <com.example.myView.BackView
+                    android:id="@+id/backTobook"
+                    android:layout_width="40dp"
+                    android:layout_height="50dp"/>
+
+                <TextView
+                    android:id="@+id/chaptername"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:paddingRight="10dp"
+                    android:text="书签"
+                    android:textColor="#ffffff"
+                    android:textSize="20sp" />
+
+                <com.example.myView.AddBookMark
+                    android:layout_width="38dp"
+                    android:layout_height="50dp"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="10dp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/blank"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#00ffffff" >
+        </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/set"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:gravity="bottom"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#3c3c3c" >
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                 android:textColor="#ffffff"
+                android:text="上一章" />
+
+            <SeekBar
+                android:id="@+id/seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:max="100"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:textColor="#ffffff"
+                android:text="下一章" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bottomset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/linearLayout1"
+            android:gravity="bottom"
+            android:orientation="horizontal" >
+
+            <com.example.myView.catalog
+                android:id="@+id/catalog"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_marginBottom="0dp"
+                android:layout_weight="1"
+                android:background="#3c3c3c" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_marginBottom="0dp"
+                android:layout_weight="1"
+                android:background="#3c3c3c" />
+
+            <com.example.myView.brightLogo
+                android:id="@+id/bright"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_marginBottom="0dp"
+                android:layout_weight="1"
+                android:background="#3c3c3c" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_marginBottom="0dp"
+                android:layout_weight="1"
+                android:background="#3c3c3c" />
+
+            <com.example.myView.setLogo
+                android:id="@+id/setlogo"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_marginBottom="0dp"
+                android:layout_weight="1"
+                android:background="#3c3c3c" />
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</LinearLayout>

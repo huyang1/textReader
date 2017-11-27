@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:book="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:id="@+id/bookimage"
+        android:layout_width="100dp"
+        android:layout_height="120dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:src="@drawable/book" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="120dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp" >
+
+        <TextView
+            android:id="@+id/bookName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="1dp"
+            android:paddingLeft="5dp"
+            android:text="九天星辰诀"
+            android:textColor="@color/blue"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:paddingLeft="10dp"
+            android:paddingTop="1dp"
+            android:text="作者"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/uploader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="1dp"
+            android:text="上传者"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/descriable"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:paddingLeft="2dp"
+            android:paddingRight="5dp"
+            android:paddingTop="2dp"
+            android:text="......................................................................."
+            android:textSize="15sp" />
+    </LinearLayout>
+
+</LinearLayout>

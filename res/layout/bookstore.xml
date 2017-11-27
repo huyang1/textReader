@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:umadsdk="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#44000000"
+        android:minHeight="?attr/actionBarSize"
+        app:title="精选" >
+    </android.support.v7.widget.Toolbar>
+
+    <ImageView
+        android:id="@+id/loadstatue"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/toolbar"
+        android:background="@color/red"
+        android:scaleType="matrix" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/bookstoreview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/bookstorebottom"
+        android:layout_below="@+id/toolbar"
+        android:layout_gravity="center"
+        android:layout_weight="1.0"
+        android:flipInterval="30"
+        android:persistentDrawingCache="animation" />
+    <SearchView
+        android:id="@+id/searchView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/toolbar"
+        android:layout_alignParentRight="true" 
+        android:paddingLeft="5dp"
+        android:queryHint="请输入搜索内容" >
+    </SearchView>
+
+    <LinearLayout
+        android:id="@+id/bookstorebottom"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="#ececec"
+        android:orientation="horizontal" >
+        
+        <LinearLayout
+            android:id="@+id/recommention"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_weight="1"
+            android:background="#ececec"
+            android:orientation="vertical" >
+            <ImageView
+                android:id="@+id/selection1" 
+                android:layout_marginTop="3dp"
+                android:layout_width="25dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/selection_in"
+                android:layout_height="25dp"/>
+            <TextView 
+                android:id="@+id/selection2" 
+                android:layout_marginTop="2dp"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="精选"
+                android:textColor="#d81e06"
+                android:layout_height="20dp"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="0dp"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:id="@+id/classify"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_weight="1"
+            android:background="#ececec"
+            android:orientation="vertical" >
+            <ImageView 
+                android:id="@+id/classify1" 
+                android:layout_marginTop="3dp"
+                android:layout_width="25dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/classify_before"
+                android:layout_height="25dp"/>
+            <TextView 
+                android:id="@+id/classify2"
+                android:layout_marginTop="2dp"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="分类"
+                android:layout_height="20dp"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="0dp"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:id="@+id/rank"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_weight="1"
+            android:background="#ececec"
+            android:orientation="vertical" >
+            <ImageView 
+                android:id="@+id/rank1" 
+                android:layout_marginTop="3dp"
+                android:layout_width="25dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/rank_before"
+                android:layout_height="25dp"/>
+            <TextView 
+                android:id="@+id/rank2"
+                android:layout_marginTop="2dp"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="排行"
+                android:layout_height="20dp"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

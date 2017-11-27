@@ -1,11 +1,16 @@
 package com.example.myView;
 
-import com.example.aaa.R;
+import java.io.IOException;
+import java.io.InputStream;
 
+import com.huyang.aaa.R;
+
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PorterDuff.Mode;
@@ -17,6 +22,7 @@ import android.graphics.drawable.NinePatchDrawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
+@SuppressLint("DrawAllocation")
 public class myRoundImageView extends ImageView{
 	private int mBorderThickness = 0; //定义双边框的间距 
     private Context mContext;  
@@ -66,8 +72,21 @@ public class myRoundImageView extends ImageView{
         this.measure(0, 0);  
         if (drawable.getClass() == NinePatchDrawable.class)  
             return;  
-        Bitmap b = ((BitmapDrawable) drawable).getBitmap();//通过定义该控件属性获取位图  
-        Bitmap bitmap = b.copy(Bitmap.Config.ARGB_8888, true); // 获取位图  
+        Bitmap b = ((BitmapDrawable) drawable).getBitmap();//通过定义该控件属性获取位图 
+        Bitmap bitmap;
+        if(b==null)
+        {
+        	InputStream is = getResources().openRawResource(R.drawable.log); 
+        	bitmap = BitmapFactory.decodeStream(is);
+        	try {
+				is.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+        else
+            bitmap = b.copy(Bitmap.Config.ARGB_8888, true); // 获取位图  
         if (defaultWidth == 0) {  
             defaultWidth = getWidth();  //通过用户定义属性得到控件的高与宽
   
@@ -106,7 +125,6 @@ public class myRoundImageView extends ImageView{
         canvas.drawBitmap(roundBitmap, defaultWidth / 2 - radius, defaultHeight  
                 / 2 - radius, null);  
     }
-	
 	private void drawCircleBorder(Canvas canvas, int radius, int color) {  
         Paint paint = new Paint();    
         paint.setAntiAlias(true);  
@@ -117,7 +135,6 @@ public class myRoundImageView extends ImageView{
         paint.setStrokeWidth(mBorderThickness);  
         canvas.drawCircle(defaultWidth / 2, defaultHeight / 2, radius, paint);  
     }
-	
 	public Bitmap getCroppedRoundBitmap(Bitmap bmp, int radius) {  //对用户所给位图进行裁剪
         Bitmap scaledSrcBmp;  
         int diameter = radius * 2;  

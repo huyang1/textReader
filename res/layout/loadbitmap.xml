@@ -6,7 +6,7 @@
     android:orientation="vertical" >
     <com.example.myView.loadBitmap
         android:id="@+id/loadimage"
-        android:layout_width="70dp"
+        android:layout_width="75dp"
         android:layout_height="100dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"

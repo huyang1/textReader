@@ -1,14 +1,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res/com.example.aaa"
-    xmlns:roundview="http://schemas.android.com/apk/res/com.example.aaa"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:roundview="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true"
+    android:id="@+id/screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/toolbarcolor"
         android:minHeight="?attr/actionBarSize" >
     </android.support.v7.widget.Toolbar>
@@ -26,7 +28,7 @@
               android:clickable="false"
               android:divider="@android:color/transparent"
               android:dividerHeight="0dp"
-              android:background="@drawable/gridviewcolor"     
+              android:background="#ffffff"     
               android:layout_height="wrap_content" />
     </android.support.v4.widget.DrawerLayout>
 
@@ -49,7 +51,15 @@
         android:gravity="center"
         android:text="@string/app_main_name"
         android:textSize="20sp" />
-
+   <ImageView 
+       android:id="@+id/recognize"
+       android:layout_height="22dp"
+       android:layout_width="22dp"
+       android:layout_marginTop="14dp"
+       android:background="@drawable/recognize"
+       android:layout_toLeftOf="@+id/load"
+       android:layout_marginRight="8dp"
+       />
     <TextView
         android:id="@+id/load"
         android:layout_width="wrap_content"

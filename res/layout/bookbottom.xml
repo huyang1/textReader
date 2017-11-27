@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:book="http://schemas.android.com/apk/res/com.example.aaa"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center"
@@ -8,10 +7,11 @@
 
     <TextView
         android:id="@+id/bookbottom"
-        android:layout_width="340dp"
+        android:layout_width="match_parent"
         android:layout_height="12dp"
+        android:paddingLeft="20dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:background="@drawable/main_text_border"
-        android:gravity="center"/>
+        android:layout_gravity="center_horizontal"/>
 </RelativeLayout>

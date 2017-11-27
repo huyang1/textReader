@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:book="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:id="@+id/downloaditem1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/uploadbookName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="bookName"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/uploadbookPath"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:text="/fd/df/dfd/fd/fd"
+                android:textColor="#acacac"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/downloaditem2"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="10dp"
+                android:layout_height="10dp" />
+
+            <com.example.myView.CircularProgressButton
+                android:id="@+id/uploadprecent"
+                android:layout_width="56dp"
+                android:layout_height="29dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="8sp"
+                app:cornerRadius="48dp"
+                app:iconComplete="@drawable/ic_action_accept"
+                app:iconError="@drawable/ic_action_cancel"
+                app:textIdle="@string/Upload" />
+
+            <TextView
+                android:id="@+id/uploadtxt"
+                android:layout_width="56dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="0%" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/downloaditem3"
+            android:layout_width="20dp"
+            android:layout_height="30dp" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/add"
+        android:layout_width="70dp"
+        android:layout_height="fill_parent"
+        android:text="添加"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:background="@color/red"/>
+    <TextView
+        android:id="@+id/delete"
+        android:layout_width="70dp"
+        android:layout_height="fill_parent"
+        android:text="删除"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:background="#CCCCFF"/>
+
+</LinearLayout>

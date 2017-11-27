@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android" >  
+    <!-- 参数为eg 50 表示当前View左上角坐标加50dp -->
+    <!-- 参数为eg 50% 表示当前View左上角坐标加view宽度的50% -->
+    <!-- 参数为eg 50%p 表示当前View左上角坐标加父view宽度的50% -->
+    <translate  
+        android:duration="300"  
+        android:fromYDelta="0"
+        android:fromXDelta="-100%" 
+        android:toXDelta="0"
+        android:toYDelta="0"/>  
+</set> 

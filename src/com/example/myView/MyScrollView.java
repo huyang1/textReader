@@ -1,6 +1,8 @@
 package com.example.myView;
 
-import com.example.aaa.R;
+import java.lang.reflect.Field;
+
+import com.huyang.aaa.R;
 import com.nineoldandroids.view.ViewHelper;
 
 import android.content.Context;
@@ -23,23 +25,30 @@ public class MyScrollView extends HorizontalScrollView{
     private boolean load=false;
     private boolean isOpen;
     private myRoundImageView myRound;
+    private Context context;
+    private int mScreenHeight;
+    private int statueBarHeight;
 	public MyScrollView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		// TODO Auto-generated constructor stub
 		/**
 		 * 获取设备的宽
 		 */
+		this.context=context;
 		WindowManager wm = (WindowManager) context
 				.getSystemService(Context.WINDOW_SERVICE);
 		DisplayMetrics outMetrics = new DisplayMetrics();
 		wm.getDefaultDisplay().getMetrics(outMetrics);
 		mScreenWidth = outMetrics.widthPixels;
+		mScreenHeight=outMetrics.heightPixels;
+		statueBarHeight=getStatusBarHeight(context);
 	}
 	
 	public MyScrollView(Context context) {
+		
 		super(context);
 		// TODO Auto-generated constructor stub
-		
+		this.context=context;
 	}
 
 	@Override
@@ -51,8 +60,11 @@ public class MyScrollView extends HorizontalScrollView{
 			mMenu=(ViewGroup) mLinear.getChildAt(0);
 			mContent=(ViewGroup) mLinear.getChildAt(1);
 			myRound=(myRoundImageView) mContent.findViewById(R.id.log_in);
-			mMenuWidth=mMenu.getLayoutParams().width=mScreenWidth - mMenuRightPadding;
+			mMenu.getLayoutParams().width=mScreenWidth - mMenuRightPadding;
+			//mMenu.getLayoutParams().height=mScreenHeight-statueBarHeight;
+			mMenuWidth=mScreenWidth - mMenuRightPadding;
             mContent.getLayoutParams().width=mScreenWidth;
+            //mContent.getLayoutParams().height=mScreenHeight-statueBarHeight;
 			load=true;
 			this.scrollTo(mMenuWidth, 0);
 		}
@@ -155,8 +167,21 @@ public class MyScrollView extends HorizontalScrollView{
 		ViewHelper.setPivotY(mContent, mContent.getHeight() / 2);
 		ViewHelper.setScaleX(mContent, rightScale);
 		ViewHelper.setScaleY(mContent, rightScale);
-
 	}
-	
-    
+	public static int getStatusBarHeight(Context context){
+        Class<?> c = null;
+        Object obj = null;
+        Field field = null;
+        int x = 0, statusBarHeight = 0;
+        try {
+            c = Class.forName("com.android.internal.R$dimen");
+            obj = c.newInstance();
+            field = c.getField("status_bar_height");
+            x = Integer.parseInt(field.get(obj).toString());
+            statusBarHeight = context.getResources().getDimensionPixelSize(x);
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        } 
+        return statusBarHeight;
+    }
 }
